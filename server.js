@@ -36,8 +36,9 @@ app.post('/api/v1/favorite-movies', (request, response) => {
 app.delete('/api/v1/favorite-movies/:id', (request, response) => {
   const id = request.params.id
   const foundFave = app.locals.favoriteMovies.find(movie => movie.id === Number(id))
+  const index = app.locals.favoriteMovies.indexOf(foundFave);
 
-  app.locals.favoriteMovies.splice(foundFave, 1)
+  app.locals.favoriteMovies.splice(index, 1)
   console.log(app.locals.favoriteMovies)
   response.send('DELETED')
 });
