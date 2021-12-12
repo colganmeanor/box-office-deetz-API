@@ -28,7 +28,7 @@ app.post('/api/v1/favorite-movies', (request, response) => {
       .send({ error: `Id is required.` });
   }
 
-  app.locals.favoriteMovies.push(fave.id);
+  !app.locals.favoriteMovies.includes(fave.id) && app.locals.favoriteMovies.push(fave.id);
   response.status(201).json({ id: fave.id });
   console.log(app.locals.favoriteMovies);
 });
@@ -40,7 +40,8 @@ app.delete('/api/v1/favorite-movies/:id', (request, response) => {
 
   app.locals.favoriteMovies.splice(index, 1)
   console.log(app.locals.favoriteMovies)
-  response.send('DELETED')
+  response.status(201).json({ id: id });
+
 });
 
 app.listen(app.get('port'), () => {
